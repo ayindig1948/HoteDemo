@@ -1,0 +1,64 @@
+﻿@page
+@model HotelApp.Net.Pages.LookkUpModel
+@{
+	ViewData["Title"] = "Room Search";
+}
+<h1>Room search </h1>
+
+<form method="post">   
+	<div class=" from-group">
+		<label asp-for="@Model.StartDate"></label>
+	<input type="date"asp-for="@Model.StartDate"/>
+</div>
+	
+		<div class=" from-group">
+			<label asp-for="@Model.EndDate" ></label>
+			<input type="date" asp-for="@Model.EndDate" />
+		</div>
+		<button type="submit"  class="btn btn-primary">Search</button>
+
+	
+</form>
+
+@if(Model.RoomTypes?.Count>0)
+{
+	<h2>Results  </h2>
+	<table class="table">
+		<thead>
+       <tr>
+        <th>Room Type </th>
+		<th> Description</th>
+		<th> Price</th>
+		<th></th>
+	</tr>
+        </thead>
+		<tbody>
+
+			@foreach(var room in Model.RoomTypes)
+			{
+				<tr> 
+					<td>
+						<strong>@room.Name</strong><br />
+						
+					</td>
+					<td>
+						@room.descreptin
+
+					</td>
+					<td>
+						@string.Format("{0:C}",room.Price)
+					</td>
+					<td>
+						<a asp-page="/BookRoom"asp-route-roomtypeName="@room.Name"asp-route-StartDate="@Model.StartDate"asp-route-EndDate="@Model.EndDate">Book now</a>
+					</td>
+				</tr>
+			}
+
+		</tbody>
+
+
+
+
+	</table>
+	
+}
